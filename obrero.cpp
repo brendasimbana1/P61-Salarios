@@ -77,10 +77,12 @@ void Obrero::setDescuento(double newDescuento)
 
 QString Obrero::toString()
 {
-    QString str = "";
+    QString str = ""; /*str, con QString se puede acceder a append(), que es el encargado de concatenar los
+                      QString*/
     str.append("Nombre: " + m_nombre + "\n");
     str.append("Jornada: " + jornada2String() + "\n");
-    str.append("Horas: " + QString::number(m_horas) + "\n");
+    str.append("Horas: " + QString::number(m_horas) + "\n"); /*método estático number() de la clase Qstring,
+                                                             transforma lo que sea Qstring*/
     str.append("Salario Bruto: $" + QString::number(m_salarioBruto) + "\n");
     str.append("Descuento: $" + QString::number(m_descuento) + "\n");
     str.append("Salario Neto: $" + QString::number(m_salarioNeto) + "\n");

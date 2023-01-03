@@ -3,7 +3,7 @@
 
 #include <QObject>
 
-enum class TipoJornada
+enum class TipoJornada //enumeradores para lista de opciones
 {
     Matituna,
     Vespertina,
@@ -12,10 +12,10 @@ enum class TipoJornada
 
 class Obrero : public QObject
 {
-    Q_OBJECT
+    Q_OBJECT //macro que incluye todos los metadatos
 public:
-    explicit Obrero(QObject *parent = nullptr);
-    Obrero(const QString &nombre, int horas, TipoJornada jornada);
+    explicit Obrero(QObject *parent = nullptr); //costructor por defecto
+    Obrero(const QString &nombre, int horas, TipoJornada jornada); //sobrecarga de constructor
 
     const QString &nombre() const;
     void setNombre(const QString &newNombre);

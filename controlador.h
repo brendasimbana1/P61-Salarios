@@ -14,16 +14,16 @@
 
 class Controlador : public QObject
 {
-    Q_OBJECT
+    Q_OBJECT //macro
 public:
-    explicit Controlador(QObject *parent = nullptr);
+    explicit Controlador(QObject *parent = nullptr); //construtor explicito por defecto
     void setDatos(QString nombre, int horas, TipoJornada jornada);
     bool calcular();
-    QString getDatos();
+    QString Datos();
 signals:
 
 private:
-    Obrero *m_modelo;
+    Obrero *m_modelo; //más dinámico
 
 };
 

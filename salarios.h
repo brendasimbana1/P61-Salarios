@@ -3,14 +3,14 @@
 
 #include <QMainWindow>
 #include <QDebug>
-#include <QMessageBox>
-#include <QFileDialog>
+#include <QMessageBox> //permite usar cuadros de dialogo
+#include <QFileDialog> //Usar cuadros de dialogo para guardar archivos
 
 #include "obrero.h"
 #include "controlador.h"
 #include "acerca.h"
 
-#define VERSION "0.2"
+#define VERSION "0.3"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class Salarios; }
