@@ -96,9 +96,9 @@ void Salarios::on_actionGuardar_triggered()
 {
     // Abrir un cuadro de diálogo para seleccionar el path y archivo a guardar
     QString nombreArchivo = QFileDialog::getSaveFileName(this,
-                                                   "Guardar calculos de salarios",
-                                                   QDir::home().absolutePath() + "/salarios.sal",
-                                                   "Archivos de texto (*.sal)");
+                                                         "Guardar calculos de salarios",
+                                                         QDir::home().absolutePath() + "/salarios.sal",
+                                                         "Archivos de texto (*.sal)");
     // Crear un objeto File
     QFile archivo(nombreArchivo);
     // Tartar de abrir para escritura
@@ -117,8 +117,6 @@ void Salarios::on_actionGuardar_triggered()
                              "Guardar archivo",
                              "No se puede acceder al archivo para guardar los datos.");
     }
-
-
 }
 
 
@@ -135,3 +133,37 @@ void Salarios::on_actionAcerca_de_triggered()
 
 }
 
+
+void Salarios::on_actionAbrir_triggered()
+{
+    /*Dialog *dialog = new Dialog (this);
+    dialog->exec();
+    if(dialog->Rejected){
+        dialog->close();
+        qDebug() << "Cancel";
+    }*/
+    //if (dialog->Accepted){
+        // Abrir un cuadro de diálogo para seleccionar el path y archivo a guardar
+        QString salarios = QFileDialog::getSaveFileName(this,
+                                                        "Guardar calculos de salarios",
+                                                        QDir::home().absolutePath() + "/salarios.sal",
+                                                        "Archivos de texto (*.sal)");
+        // Crear un objeto File
+        QFile archivo(salarios);
+        int tamanio = archivo.size();
+        if (tamanio > 0){
+            QTextStream in (&archivo);
+            if(archivo.open(QFile::ReadOnly)){
+                ui->outCalculos->clear();
+                ui->outCalculos->appendPlainText(qPrintable(in.readAll()));
+            }else{
+                // Mensaje de error
+                QMessageBox::warning(this,
+                                     "Abrir archivo",
+                                     "No se puede acceder al archivo, no contiene datos.");
+            }
+        }
+        qDebug() << "Aceptado";
+    //}
+
+}
