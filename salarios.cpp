@@ -136,34 +136,36 @@ void Salarios::on_actionAcerca_de_triggered()
 
 void Salarios::on_actionAbrir_triggered()
 {
-    /*Dialog *dialog = new Dialog (this);
-    dialog->exec();
-    if(dialog->Rejected){
-        dialog->close();
-        qDebug() << "Cancel";
-    }*/
-    //if (dialog->Accepted){
-        // Abrir un cuadro de diálogo para seleccionar el path y archivo a guardar
-        QString salarios = QFileDialog::getSaveFileName(this,
-                                                        "Guardar calculos de salarios",
-                                                        QDir::home().absolutePath() + "/salarios.sal",
-                                                        "Archivos de texto (*.sal)");
-        // Crear un objeto File
-        QFile archivo(salarios);
-        int tamanio = archivo.size();
-        if (tamanio > 0){
-            QTextStream in (&archivo);
-            if(archivo.open(QFile::ReadOnly)){
-                ui->outCalculos->clear();
-                ui->outCalculos->appendPlainText(qPrintable(in.readAll()));
-            }else{
-                // Mensaje de error
-                QMessageBox::warning(this,
-                                     "Abrir archivo",
-                                     "No se puede acceder al archivo, no contiene datos.");
-            }
+    // Abrir un cuadro de diálogo para seleccionar el path y archivo a guardar
+    QString salarios = QFileDialog::getSaveFileName(this,
+                                                    "Guardar calculos de salarios",
+                                                    QDir::home().absolutePath() + "/salarios.sal",
+                                                    "Archivos de texto (*.sal)");
+    // Crear un objeto File
+    QFile archivo(salarios);
+    int tamanio = archivo.size();
+    if (tamanio > 0){
+        QMessageBox messageBox(this);
+        messageBox.addButton(tr("Conservar"), QMessageBox::AcceptRole);
+        messageBox.addButton(tr("Descartar"), QMessageBox::RejectRole);
+        messageBox.setText("¿Desea conservar los datos actales?");
+        int ret = messageBox.exec();
+        if(ret == QMessageBox::Accepted)
+            ui->outCalculos->clear();
+        QTextStream in(&archivo);
+        if(archivo.open(QFile::ReadOnly)){
+            ui->outCalculos->appendPlainText(qPrintable(in.readAll()));
+        }else {
+            // Mensaje de error
+            QMessageBox::warning(this,
+                                 "Leer archivo",
+                                 "No se puede acceder al archivo para leer los datos.");
         }
-        qDebug() << "Aceptado";
-    //}
-
+        ui->statusbar->showMessage("Se ha cargado el archivo correctamente.",5000);
+        archivo.close();
+    }else{
+        QMessageBox::warning(this,
+                             "Abrir Archivo",
+                             "El archivo no contiene infomacion");
+    }
 }
